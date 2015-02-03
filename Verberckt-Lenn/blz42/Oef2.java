@@ -1,8 +1,7 @@
-package HelloTVXlet;
+package Oef2;
 
 import javax.tv.xlet.Xlet;
 import javax.tv.xlet.XletContext;
-import java.awt.*;
 import java.awt.event.*;
 import org.havi.ui.*;
 import org.dvb.ui.*;
@@ -11,12 +10,12 @@ import org.havi.ui.event.*;
 /**
  * Just a simple xlet that draws a String in the center of the screen.
  */
-public class HelloTVXlet implements Xlet, HActionListener {
+public class Oef2 implements Xlet, HActionListener {
     
     private XletContext actueleXletContext;
     private HScene scene;
     private boolean debug = true;
-    private HTextButton knop1, knop2, knop3, knop4;
+    private HTextButton knop1, knop2, knop3, knop4, hulplijn;
     private HStaticText label1;
     
     public void initXlet(XletContext context) {
@@ -29,7 +28,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
     
         scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
         
-        label1 = new HStaticText("Waar staat de eiffeltoren?");
+        label1 = new HStaticText("Waar staat de eiffeltoren??");
         label1.setLocation(100, 50);
         label1.setSize(400, 50);
         label1.setBackground(new DVBColor(255,255,255,179));
@@ -65,18 +64,28 @@ public class HelloTVXlet implements Xlet, HActionListener {
         knop4.setBackground(new DVBColor(0,0,0,179));
         knop4.setBackgroundMode(HVisible.BACKGROUND_FILL);
         knop4.setActionCommand("Knop 4 - Fout!");
-        knop4.addHActionListener(this);        
+        knop4.addHActionListener(this);
         
-        knop1.setFocusTraversal(knop4, knop2, null, null); 
+        hulplijn = new HTextButton("Hulplijn");
+        hulplijn.setLocation(100,400);
+        hulplijn.setSize(100, 50);
+        hulplijn.setBackground(new DVBColor(0,0,0,179));
+        hulplijn.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        hulplijn.setActionCommand("Hulplijn ingeroepen! Twee antwoorden verwijderd");
+        hulplijn.addHActionListener(this);
+        
+        knop1.setFocusTraversal(hulplijn, knop2, null, null); 
         knop2.setFocusTraversal(knop1, knop3, null, null);
         knop3.setFocusTraversal(knop2, knop4, null, null);
-        knop4.setFocusTraversal(knop3, knop1, null, null);
+        knop4.setFocusTraversal(knop3, hulplijn, null, null);
+        hulplijn.setFocusTraversal(knop4, knop1, null, null);
         
         scene.add(knop1);
         scene.add(knop2);
         scene.add(knop3);
         scene.add(knop4);
         scene.add(label1);
+        scene.add(hulplijn);
         
         knop1.requestFocus();
     }
@@ -98,5 +107,13 @@ public class HelloTVXlet implements Xlet, HActionListener {
     
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
+        if(e.getActionCommand().equals("Hulplijn ingeroepen! Twee antwoorden verwijderd")) {
+            knop2.setVisible(false);
+            knop4.setVisible(false);
+            hulplijn.setVisible(false);
+            knop1.setFocusTraversal(knop3, knop3, null, null);
+            knop3.setFocusTraversal(knop1, knop1, null, null);
+            knop1.requestFocus();
+        }
     }
 }

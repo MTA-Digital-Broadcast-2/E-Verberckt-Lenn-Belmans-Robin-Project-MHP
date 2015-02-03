@@ -1,4 +1,4 @@
-package HelloTVXlet;
+package Oef1;
 
 import javax.tv.xlet.Xlet;
 import javax.tv.xlet.XletContext;
@@ -11,7 +11,7 @@ import org.havi.ui.event.*;
 /**
  * Just a simple xlet that draws a String in the center of the screen.
  */
-public class HelloTVXlet implements Xlet, HActionListener {
+public class Oef1 implements Xlet, HActionListener {
     
     private XletContext actueleXletContext;
     private HScene scene;
