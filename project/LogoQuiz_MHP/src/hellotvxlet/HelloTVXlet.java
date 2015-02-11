@@ -1,4 +1,4 @@
-package Oef1;
+package hellotvxlet;
 
 import javax.tv.xlet.Xlet;
 import javax.tv.xlet.XletContext;
