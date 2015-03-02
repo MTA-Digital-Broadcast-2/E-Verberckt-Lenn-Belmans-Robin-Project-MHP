@@ -17,7 +17,6 @@ public class HelloTVXlet implements Xlet, HActionListener {
     private HScene scene;
     private boolean debug = true;
     private HTextButton knop1;
-    private HTextButton knop2;
     private HStaticText label1;
     
     public void initXlet(XletContext context) {
@@ -32,28 +31,19 @@ public class HelloTVXlet implements Xlet, HActionListener {
         
         label1 = new HStaticText("Welkom op de logoquiz");
         label1.setLocation(100, 50);
-        label1.setSize(500, 50);
+        label1.setSize(400, 50);
         label1.setBackground(new DVBColor(255,255,255,179));
         label1.setBackgroundMode(HVisible.BACKGROUND_FILL);
         
         knop1 = new HTextButton("Start");
-        knop1.setLocation(250,200);
-        knop1.setSize(200,50);
-        knop1.setBackground(new DVBColor(0,0,0,167));
+        knop1.setLocation(100,100);
+        knop1.setSize(250,50);
+        knop1.setBackground(new DVBColor(0,0,0,179));
         knop1.setBackgroundMode(HVisible.BACKGROUND_FILL);
         knop1.setActionCommand("Het spel wordt gestart");
         knop1.addHActionListener(this);
         
-        knop2 = new HTextButton("spelregels");
-        knop2.setLocation(250,260);
-        knop2.setSize(200,50);
-        knop2.setBackground(new DVBColor(0,0,0,167));
-        knop2.setBackgroundMode(HVisible.BACKGROUND_FILL);
-        knop2.setActionCommand("Meer info...");
-        knop2.addHActionListener(this);
-        
         scene.add(knop1);
-        scene.add(knop2);
         scene.add(label1);
         
         knop1.requestFocus();
