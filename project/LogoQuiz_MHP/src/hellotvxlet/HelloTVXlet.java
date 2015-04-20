@@ -1,5 +1,6 @@
 package hellotvxlet;
 
+import java.awt.Color;
 import javax.tv.xlet.Xlet;
 import javax.tv.xlet.XletContext;
 import java.awt.event.*;
@@ -21,7 +22,11 @@ public class HelloTVXlet implements Xlet, HActionListener {
     private HStaticText label1;
     private HStaticText label2;
     private HStaticText lblScore2;
+    private HStaticText lblWoord;
+    public HSinglelineEntry txtInput;
     public int Score = 0;
+    public int vraagNummer = 0;
+    
     
     public void initXlet(XletContext context) {
         if(debug) System.out.println("Xlet initialiseren.");
@@ -30,7 +35,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
         
         sceneTemplate.setPreference(HSceneTemplate.SCENE_SCREEN_DIMENSION, new HScreenDimension(1.0f, 1.0f), HSceneTemplate.REQUIRED);
         sceneTemplate.setPreference(HSceneTemplate.SCENE_SCREEN_LOCATION, new HScreenPoint(0.0f, 0.0f), HSceneTemplate.REQUIRED);
-    
+        
         scene = HSceneFactory.getInstance().getBestScene(sceneTemplate);
         
         label1 = new HStaticText("Welkom op ons spel");
@@ -54,6 +59,19 @@ public class HelloTVXlet implements Xlet, HActionListener {
         lblScore2.setBackgroundMode(HVisible.BACKGROUND_FILL);
         lblScore2.setVisible(false);
         
+        lblWoord = new HStaticText("niets");
+        lblWoord.setLocation(240, 275);
+        lblWoord.setSize(200, 25);
+        lblWoord.setBackground(new DVBColor(0,0,0,179));
+        lblWoord.setBackgroundMode(HVisible.BACKGROUND_FILL);
+        lblWoord.setVisible(false);
+        
+        txtInput = new HSinglelineEntry(240, 325, 200, 25, 25);
+        txtInput.setBackground(new DVBColor(0,0,0,179));
+        txtInput.setForeground(Color.RED);
+        txtInput.setVisible(false);
+        
+                
         knop1 = new HTextButton("Start");
         knop1.setLocation(250,200);
         knop1.setSize(200,50);
@@ -89,10 +107,12 @@ public class HelloTVXlet implements Xlet, HActionListener {
         scene.add(label1);
         scene.add(label2);
         scene.add(lblScore2);
+        scene.add(lblWoord);
+        scene.add(txtInput);
         
         knop1.requestFocus();
     }
-
+    
     public void startXlet() {
         if(debug) System.out.println("Xlet starten.");
         
@@ -107,7 +127,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
     public void destroyXlet(boolean unconditional) {
         
     }
-    
+      
     public void actionPerformed(ActionEvent e) {
         System.out.println(e.getActionCommand());
         if (e.getActionCommand().equals("start"))
@@ -118,9 +138,11 @@ public class HelloTVXlet implements Xlet, HActionListener {
             knop2.setVisible(true);
             knop3.setVisible(true);
             lblScore2.setVisible(true);
+            lblWoord.setVisible(true);
             knop3.requestFocus();
             knop2.setFocusTraversal(null, null, knop3, null);
             knop3.setFocusTraversal(null, null, null, knop2);
+            txtInput.setVisible(true);
         }
         else if (e.getActionCommand().equals("stop"))
         {
@@ -130,9 +152,11 @@ public class HelloTVXlet implements Xlet, HActionListener {
             knop2.setVisible(false);
             knop3.setVisible(false);
             lblScore2.setVisible(false);
+            lblWoord.setVisible(false);
             knop1.requestFocus();
             Score=0;
             lblScore2.setTextContent(Integer.toString(Score), HState.NORMAL_STATE);
+            txtInput.setVisible(false);
             
         }
         
@@ -141,6 +165,7 @@ public class HelloTVXlet implements Xlet, HActionListener {
             Score++;
             lblScore2.setTextContent(Integer.toString(Score), HState.NORMAL_STATE);
             System.out.println(Score);
+            
         }
     }
 }
